@@ -25,10 +25,13 @@ where $c(t) = -\frac{1}{2} \int_0^t \beta(s) ds =-\frac{1}{2}\bar{\beta_1} t - \
 $ 
 
 ## Objective function
+
 Objective function to train score-based SDE model
+
 $$
 E_{t \sim \mathcal{U}(0,1)}\| s_\theta(t, \hat{x}) - \triangledown_{\hat{x}} \text{ log }p(\hat{x}|x_0) \|
 $$
+
 The pipeline to implement `loss_fn` 
 
 ## Notes
