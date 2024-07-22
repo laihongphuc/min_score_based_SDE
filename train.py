@@ -5,6 +5,8 @@ import torch
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 from torchvision.datasets import FashionMNIST
+from torchvision.utils import make_grid
+import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 
@@ -22,8 +24,6 @@ beta_min = 0.01        # \bar{beta_min}
 beta_max = 10          # \bar{beta_max}
 x_shape = (1, 28, 28)  # shape of image
 
-from torchvision.utils import make_grid
-import matplotlib.pyplot as plt
 
 def visualize_images(batch_images, nrow=4):
     grid_image = make_grid(batch_images, nrow=nrow) 
