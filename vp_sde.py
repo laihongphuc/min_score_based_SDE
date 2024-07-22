@@ -14,6 +14,12 @@ class VP():
         """
         return (self.beta_min + t * (self.beta_max - self.beta_min))
     
+    def _alpha_t(self, t):
+        """
+        Compute alpha(t) for t in [0, 1]
+        """
+        return 1 - self._beta_t(t) / self.num_steps
+    
     def _c_t(self, t):
         """
         Compute c(t) for t in [0, 1]

@@ -10,6 +10,7 @@ from tqdm import tqdm
 
 from unet import ScoreNet
 from vp_sde import VP
+from solver import Euler_Maruyama_sampler
 
 
 # Hyperparameters
@@ -19,8 +20,21 @@ lr = 1e-4              # learning rate
 num_steps=1000         # number of steps for discrete solve SDE
 beta_min = 0.01        # \bar{beta_min}
 beta_max = 10          # \bar{beta_max}
+x_shape = (1, 28, 28)  # shape of image
 
+from torchvision.utils import make_grid
+import matplotlib.pyplot as plt
 
+def visualize_images(batch_images, nrow=4):
+    grid_image = make_grid(batch_images, nrow=nrow) 
+    # convert to numpy format 
+    grid_image_np = grid_image.permute(1, 2, 0).numpy()
+    plt.figure(figsize=(8, 8))
+    plt.imshow(grid_image_np)
+    plt.axis('off')
+    plt.show()
+    
+    
 def loss_fn(model, x, sde, eps=1e-5):
     """ Inputs:
           model: score model (i.e. diffusion model)
@@ -67,6 +81,10 @@ def train_model(model, sde, train_loader, optimizer, epochs, device='cuda'):
         if best_avg_loss > current_avg_loss:
             best_avg_loss = current_avg_loss
             torch.save(model.state_dict(), './checkpoint/vp_sde_ckpt_best.pt')
+        if epoch % 10 == 0:
+            sample_test = Euler_Maruyama_sampler(model, sde, 16, x_shape, device=device)
+            sample_test = sample_test.detach().cpu()
+            visualize_images(sample_test, nrow=4)
 
 
 if __name__ == "__main__":
