@@ -5,7 +5,7 @@ ToDo
 - [x] Implement VP-SDE
 - [x] Implement Euler-Maruyama 
 - [x] Impelemnt Predictor-Corrector (algorithm (5) in paper)
-- [] VE-SDE
+- [ ] VE-SDE
 
 # VP - SDE
 Noise scheduler from $\beta_1 → \beta_N$ we converge to $\beta(t), t \in [0, \frac{1}{N}, \dots, \frac{N-1}{N}]$ and the discrete version of VP-SDE is
